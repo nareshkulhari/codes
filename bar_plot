@@ -1,0 +1,26 @@
+X = np.array(top_alert_count.month.unique())
+Y = np.array(top_alert_count.iloc[::5,].value)
+Z = np.array(top_alert_count.iloc[1::5,].value)
+A = np.array(top_alert_count.iloc[2::5,].value)
+##alerts
+Y_al = np.array(top_alert_count.iloc[::5,].alertnumber)
+Z_al = np.array(top_alert_count.iloc[1::5,].alertnumber)
+A_al = np.array(top_alert_count.iloc[2::5,].alertnumber)
+
+
+def subcategorybar(X, vals,als, width=0.8):
+    n = len(vals)
+    _X = np.arange(len(X))
+    plt.figure(figsize=(12,8))
+    for i in range(n):
+        plt.bar(_X - width/2. + i/float(n)*width, vals[i], 
+                width=width/float(n), align="edge")
+        for j in _X:
+            plt.text(j-0.4,vals[0][j]+150,str(als[0][j]))
+            plt.text(j-0.12,vals[1][j]+150,str(als[1][j]))
+            plt.text(j+0.16,vals[2][j]+150,str(als[2][j]))
+    plt.xticks(_X, X)
+
+subcategorybar(X, [Y,Z,A],[Y_al,Z_al,Z_al])
+
+plt.show()
