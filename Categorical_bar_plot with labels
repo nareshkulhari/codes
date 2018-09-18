@@ -1,0 +1,30 @@
+def subcategorybar(X, vals,als, width=0.8):
+    n = len(vals)
+    _X = np.arange(len(X))
+    plt.figure(figsize=(14,9))
+    for i in range(n):
+        plt.bar(_X - width/2. + i/float(n)*width, vals[i], 
+                width=width/float(n), align="edge")
+        for j in _X:
+            plt.text([_X - width/2. + i/float(n)*width][0][j],vals[i][j]+0.01*vals[i][j],str(als[i][j]))
+    plt.xticks(_X, X)
+    
+    
+### data
+X = ['a','b','c','d','f']
+A1 = [1,2,3,4,5]
+A2= [1,54,6,7,8]
+A3 = [3,5,6,8,9]
+A4= [4,5,6,7,3]
+A5 = [5,6,7,8,5]
+
+##labels
+A1_al = ['da','dd',5,6,3]
+A2_al = np.random.random_integers(20,size=5)
+A3_al = np.random.random_integers(20,size=5)
+A4_al = np.random.random_integers(20,size=5)
+A5_al = np.random.random_integers(20,size=5)
+
+subcategorybar(X, [A1,A2,A3,A4],[A1_al,A2_al,A3_al,A4_al],width=0.8)
+
+plt.show()
