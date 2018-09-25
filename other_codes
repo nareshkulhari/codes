@@ -1,1 +1,2 @@
-np.array(a.groupby(['vin',(a['partial_charge'] != 1).cumsum()]).cumcount()+1)
+    For giving rank of each contious series
+    np.array(a.groupby(['vin',(a['partial_charge'] != a['partial_charge'].shift()).cumsum()]).cumcount()+1)
