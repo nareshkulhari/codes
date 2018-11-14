@@ -1,0 +1,96 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from time import sleep
+
+# example option: add 'incognito' command line arg to options
+option = webdriver.ChromeOptions()
+# option.add_argument("--incognito")
+#to open browser
+browser = webdriver.Chrome(executable_path='chromedriver', chrome_options=option)
+
+# go to website of interest
+browser.get("my_website")
+
+#sending username and password
+username = browser.find_element_by_id("loginUser")
+password = browser.find_element_by_id("loginPwd")
+username.send_keys("my_id")
+password.send_keys("my_password")
+browser.find_element_by_id("commandSignIn").click()
+
+# browser.current_url
+# ids = browser.find_elements_by_xpath('//*[@id]')
+# for i in ids:
+#     #print ii.tag_name
+#     print(i.get_attribute('id'))
+# driver.switch_to.frame(frame_reference)
+# // then do stuff in the frame
+# driver.switch_to.default_content()
+# // then do stuff on main window again
+
+sleep(2)
+
+#switching frames
+browser.switch_to.frame('mainFrame')
+
+# Clicking on company name
+browser.find_element_by_xpath('//*[@id="leftNav"]/div[1]/ul/li[3]').click()
+
+# Add Company Name
+
+company='my_company'
+
+#enter company name
+browser.find_element_by_id("companyName").send_keys(company)
+
+#clicking on search
+browser.find_element_by_xpath('//*[@id="company"]/div[2]/input').click()
+
+sleep(8)
+
+# click on refine
+browser.find_element_by_xpath('//*[@id="refineTabLink"]').click()
+
+#click document type
+browser.find_element_by_xpath('//*[@id="RefineToolBox"]/div[4]/label[1]/input').click()
+
+#click patent
+browser.find_element_by_xpath('//*[@id="DOCUMENT_TYPE"]/div[1]/div[11]/label/input').click()
+
+#click refine
+browser.find_element_by_xpath('//*[@id="dtRefineBtn"]').click()
+
+sleep(6)
+
+# Give max Range for forloop
+
+maxrange=21304
+
+for i in range(12501,maxrange,100):
+    #click export
+    browser.find_element_by_xpath('//*[@id="answerPersistenceId"]/li[3]/span').click()
+    sleep(1)
+    #Click on Quoted text
+    browser.find_element_by_xpath('//*[@id="FileExportMod_ExportModDialog_typeListContainer"]/div[1]/ul/li[2]/div/label/input').click()
+    sleep(0.5)
+    #click on range
+    browser.find_element_by_xpath('//*[@id="FileExportMod_ExportModDialog_form"]/div[1]/div/ul/li[3]/div/label[1]/input').click()
+    sleep(0.5)
+    
+    # entering range
+    browser.find_element_by_xpath('//*[@id="range"]').send_keys(str(i)+'-'+str(i+99))
+    
+    #to rename file name
+    browser.find_element_by_xpath('//*[@id="fileName"]').clear()
+    browser.find_element_by_xpath('//*[@id="fileName"]').send_keys(company+'('+str(i)+'-'+str(i+99)+')')
+    
+    # to click on final export
+    browser.find_element_by_xpath('//*[@id="FileExportMod_ExportModDialog_doactionbutton"]').click()
+    
+    print(str(i)+'-'+str(i+99))
+    sleep(8)
+
+browser.find_element_by_xpath('//*[@id="USERGREETINIGMODULE_loLink"]').click()
