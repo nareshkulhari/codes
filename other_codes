@@ -23,3 +23,13 @@
 # data['final']=data.apply(lambda x:intersection(x['split_text'],keywords),axis=1)
 # data['final']=data.apply(lambda x:intersection(x['split_text'],keywords),axis=1)
 # re.findall(r'(^|\s)ori(\s|$|[.]|[,])', a)
+
+
+# go to website of interest
+browser.get("https://google.com")
+
+# to get list of all id's from page
+ids = browser.find_elements_by_xpath('//*[@id]')
+
+for i in ids:
+    print(i.get_attribute('id'))
