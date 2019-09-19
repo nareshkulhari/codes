@@ -28,3 +28,19 @@ A5_al = np.random.random_integers(20,size=5)
 subcategorybar(X, [A1,A2,A3,A4],[A1_al,A2_al,A3_al,A4_al],width=0.8)
 
 plt.show()
+
+
+
+##new
+Var1='Days in Passage [Raji]'
+Var2='Passage Number [Raji]'
+df=input_file[[Var2, Var1]].dropna(axis=0).reset_index(drop=True)
+confusion_matrix = pd.crosstab(df[Var2],df[Var1])
+sum_=list(confusion_matrix.sum(axis=1).reset_index()[0])
+confusion_matrix=confusion_matrix.div(confusion_matrix.sum(axis=1),axis=0)
+fig=confusion_matrix.plot(kind="bar",stacked=True,ylim=(0,1.1)).get_figure()
+
+for i in range(len(set(input_file[Var2].dropna()))):
+    plt.text(x = i-0.19 , y = 1+0.03, s = sum_[i], size = 10)
+
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),title=Var1)
