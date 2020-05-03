@@ -33,3 +33,12 @@ ids = browser.find_elements_by_xpath('//*[@id]')
 
 for i in ids:
     print(i.get_attribute('id'))
+    
+    
+from matplotlib.ticker import FuncFormatter
+sns.set(style="darkgrid")    
+fig, ax = plt.subplots(figsize=(8, 5))    
+palette = sns.color_palette("bright", 4)
+g=df.groupby('Q_no')['Revenue New Orders'].sum().plot()
+f = lambda x, pos: f'{x/10**6:,.0f}M'
+ax.yaxis.set_major_formatter(FuncFormatter(f))
